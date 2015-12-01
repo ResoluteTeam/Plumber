@@ -26,6 +26,8 @@ private:
     
     void initPipes();
     
+    void drawDecor();
+    
     Pipe* pipe;
     
     std::vector<Pipe*> pipes;

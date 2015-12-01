@@ -84,7 +84,7 @@ void Game::render()
     setfillstyle(SOLID_FILL, COLOR(230,225,255)); 
     bar(0,0,getmaxx(),getmaxy());
 
-    
+    drawDecor();
     
     setcolor(COLOR(0,0, 150));
     setlinestyle(SOLID_LINE, 0, THICK_WIDTH);
@@ -233,6 +233,29 @@ void Game::checkWay()
     }
 }
 
+void Game::drawDecor()
+{
+    //------Enter
+    rectangle(84, 59, 114, 66);
+    rectangle(89, 59, 109, -2);
+    circle(99, 30, 25);
+    circle(99, 30, 20);
+
+    line(95, 10, 95, 48);
+    line(102, 10, 102, 48);
+    line(79, 26, 115, 26);
+    line(79, 34, 115, 34); 
+    
+    fillellipse(99,30,6,6);
+    
+    //------Exit
+    rectangle(66*8 + 18, 66*5, 66*8 + 48, 66*5 + 7);
+    line(66*8 + 23, 66*5 + 7, 66*8 + 23, 66*5 + 57);
+    line(66*8 + 43, 66*5 + 7, 66*8 + 43, 66*5 + 37);
+    line(66*8 + 43, 66*5 + 37, 66*8 + 150, 66*5 + 37);
+    line(66*8 + 23, 66*5 + 57, 66*8 + 150, 66*5 + 57);
+}
+    
 Game::~Game()
 {
 }
