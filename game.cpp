@@ -3,10 +3,6 @@
 Game::Game()
 {
     initwindow(650,468,"Play Plumber",100,100,true,true);
-<<<<<<< HEAD
-    pipe = new Pipe(0,100,100);
-    pipe -> rotate();
-=======
     
     level1 = new bool* [4];
     
@@ -40,7 +36,6 @@ Game::Game()
         }
         std::cout << std::endl;
     }
->>>>>>> 829caeb26efb08a670bc47791ddd1c62d091b58c
 }
 
 int Game::start()
@@ -76,9 +71,7 @@ void Game::render()
 {
     setfillstyle(SOLID_FILL, COLOR(230,225,255)); // Выставляем стил
     bar(0,0,getmaxx(),getmaxy()); // Рисуем фон
-<<<<<<< HEAD
-    pipe->draw();
-=======
+
     
     
     setcolor(COLOR(0,0, 150));
@@ -91,8 +84,6 @@ void Game::render()
          line(66, 66 + i*66, 594, 66 + i*66);
     }
     
-    
->>>>>>> 829caeb26efb08a670bc47791ddd1c62d091b58c
     swapbuffers(); //Очистка буфера
 }
 
