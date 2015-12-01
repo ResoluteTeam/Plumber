@@ -29,3 +29,4 @@
 *.layout
 Plumber.layout
 *.win
+Makefile.win
