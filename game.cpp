@@ -33,6 +33,43 @@ void Game::processEvents()
                 exit = true;
             }
         }
+        
+        int mouseX, mouseY;
+        
+        getmouseclick(WM_LBUTTONDOWN, mouseX, mouseY);
+        
+        if ( mouseX > 66 && mouseX < 594 && mouseY > 66 && mouseY < 330 ) { 
+            
+            int posX, posY;
+
+            double a, b, xx, yy;
+        
+            a = mouseX/66;
+            b = mouseY/66;
+        
+            std::modf(a, &xx);
+            std::modf(b, &yy);
+        
+            posX = (int)xx - 1;
+            posY = (int)yy - 1;
+            
+            std::cout << mouseX << ":" << mouseY << std::endl;
+            std::cout << posX << ":" << posY << std::endl;
+            
+            
+            std::vector<Pipe*>::iterator it;
+            it = pipes.begin();
+            
+            while ( it != pipes.end() ) {
+                if ( (*it)->getRelX() == posX && (*it)->getRelY() == posY ) {
+                    (*it)->rotate();
+                }
+            
+            it++;
+            }
+            
+            
+        }
     }
 }
 
@@ -58,9 +95,9 @@ void Game::render()
     
     while ( it != pipes.end() ) {
      
-     (*it)->draw();
+        (*it)->draw();
      
-     it++;   
+    it++;   
     }
     
     swapbuffers();
@@ -73,15 +110,15 @@ void Game::update()
 
 void Game::initPipes() 
 {
-    level1 = new bool* [4];
+    level1 = new bool* [8];
     
-    for(int count = 0; count < 4; count++) {
-            level1[count] = new bool[8];
+    for(int count = 0; count < 8; count++) {
+            level1[count] = new bool[4];
     } 
     
     
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 8; j++) {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 4; j++) {
             level1[i][j] = 1;
         }
     }
@@ -101,10 +138,11 @@ void Game::initPipes()
     Pipe *temp;
     
     
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 8; j++) {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 4; j++) {
             std::cout << level1[i][j] << " " ;
-                temp = new Pipe(level1[i][j], 66 + j*66, 66 + i * 66);
+                temp = new Pipe(level1[i][j], 66 + i*66, 66 + j * 66);
+                temp->setRelPos(i, j);
                 
                 pipes.push_back(temp);
         }
