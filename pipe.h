@@ -6,7 +6,6 @@
 //size = 66x66
 //direction, if 0 - up, 1 - right, 2 - dawn, 3 - right
 
-
 class Pipe {
 public:
         Pipe(bool typeOfFigure, int positionX, int positionY);   
@@ -18,6 +17,11 @@ public:
         int getRelX();
         int getRelY();
         
+        int getNode1X();
+        int getNode1Y();
+        int getNode2X();
+        int getNode2Y();
+        
         void setRelPos(int x, int y);
         void rotate();
         void rotate(int count);
@@ -25,9 +29,10 @@ public:
         void draw();
         
 private:
+    
         bool type;
         int direction;
-        int x, y;
+        int x, y, node1X, node1Y, node2X, node2Y;
         int relX, relY;
         int size;
         bool filled;
