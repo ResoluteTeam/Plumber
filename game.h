@@ -21,6 +21,9 @@ private:
     void processEvents();
     void render();
     void update();
+    
+    void checkWay();
+    
     void initPipes();
     
     Pipe* pipe;

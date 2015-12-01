@@ -31,7 +31,13 @@ void Game::processEvents()
             if(key == 27) 
             {
                 exit = true;
+            } if ( key == '\r' )
+            {
+                checkWay();
             }
+            
+            
+            
         }
         
         int mouseX, mouseY;
@@ -148,6 +154,82 @@ void Game::initPipes()
         }
         
         std::cout << std::endl;
+    }
+}
+
+void Game::checkWay() 
+{
+    
+    int nextX, nextY;
+    int currX = 0;
+    int currY = 0;
+    
+    bool flag = false;
+    
+    
+    if ( pipes.front()->getNode1X() == 0 && pipes.front()->getNode1Y() == -1 ) {
+        nextX = pipes.front()->getNode2X();
+        nextY = pipes.front()->getNode2Y();
+        flag = true;
+        
+    }
+    if ( pipes.front()->getNode2X() == 0 && pipes.front()->getNode2Y() == -1) {
+        nextX = pipes.front()->getNode1X();
+        nextY = pipes.front()->getNode1Y();
+        flag = true;
+    }
+    
+    std::vector<Pipe*>::iterator it;
+    
+    
+    while ( nextX != 7 && nextY != 4 && flag) {
+        
+        it = pipes.begin();
+        flag = false;
+        
+        while ( it != pipes.end() ) {
+            if ( (*it)->getRelX() == nextX && (*it)->getRelY() == nextY ) {
+                std::cout << "NODE 1: " << (*it)->getNode1X() << ":" << (*it)->getNode1Y() << std::endl;
+                std::cout << "NODE 2: " << (*it)->getNode2X() << ":" << (*it)->getNode2Y() << std::endl;
+                flag = false;
+                
+                if ( (*it)->getNode2X() == 7 && (*it)->getNode2Y() == 4 ) {
+                        std::cout << "PABEDA!!!2";
+                    }
+                if ( (*it)->getNode1X() == 7 && (*it)->getNode1Y() == 4 ) {
+                    std::cout << "PABEDA!!!";
+                }
+                    
+                if ( (*it)->getNode1X() == currX && (*it)->getNode1Y() == currY ) {
+                    nextX = (*it)->getNode2X();
+                    nextY = (*it)->getNode2Y();
+                    flag = true;
+                    
+                    currX = (*it)->getRelX();
+                    currY = (*it)->getRelY();
+                } 
+                
+                if ( (*it)->getNode2X() == currX && (*it)->getNode2Y() == currY ) {
+                    nextX = (*it)->getNode1X();
+                    nextY = (*it)->getNode1Y();
+                    flag = true;
+                    
+                    currX = (*it)->getRelX();
+                    currY = (*it)->getRelY();
+                }
+            } 
+        it++;
+        }
+        
+        if ( !flag ) {
+            std::cout << "NO WAY" << std::endl;
+            
+            std::cout << "X:" << currX << " Y:" << currY << std::endl;
+        }
+    }
+    
+    if ( flag ) {
+        
     }
 }
 
