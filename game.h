@@ -22,6 +22,8 @@ private:
     void update();
     
     bool exit;
+    
+    bool** level1;
 };
 
 #endif // GAME_H
