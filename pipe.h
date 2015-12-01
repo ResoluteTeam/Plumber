@@ -25,6 +25,7 @@ private:
         int direction;
         int x, y;
         int size;
+        bool filled;
 };
 
 #endif //PIPE_H
