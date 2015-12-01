@@ -73,6 +73,25 @@ void Menu::update(){
 }
 
 void Menu::processEvents(){
+    
+    if ( ismouseclick(WM_LBUTTONDOWN) ) {
+        int mouseX, mouseY;
+        
+        getmouseclick(WM_LBUTTONDOWN, mouseX, mouseY);
+        
+        if ( startBtn.isClick(mouseX, mouseY) ) {
+            status = 1;
+            exit = true;
+        }
+        if ( exitBtn.isClick(mouseX, mouseY) ) {
+
+            status = 2;
+            exit = true;
+        }
+    }
+    
+    
+    
     if(kbhit())
     {
         char key = getch();

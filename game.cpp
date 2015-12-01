@@ -69,8 +69,8 @@ void Game::processEvents()
 
 void Game::render()
 {
-    setfillstyle(SOLID_FILL, COLOR(230,225,255)); // Выставляем стил
-    bar(0,0,getmaxx(),getmaxy()); // Рисуем фон
+    setfillstyle(SOLID_FILL, COLOR(230,225,255)); 
+    bar(0,0,getmaxx(),getmaxy());
 
     
     
@@ -84,7 +84,7 @@ void Game::render()
          line(66, 66 + i*66, 594, 66 + i*66);
     }
     
-    swapbuffers(); //Очистка буфера
+    swapbuffers();
 }
 
 void Game::update()
