@@ -28,6 +28,14 @@ void Button::draw(){
         rectangle(_x, _y, _x + 265, _y + 120);
 }
 
+bool Button::isClick(int x, int y) 
+{
+    if ( x > _x && x < _x + 256 && y > _y && y < _y + 120 ) {
+        return true;
+    } else {
+        return false;
+    }
+}
 void Button::setFocus(bool focused){
     focus = focused;
 }

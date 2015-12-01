@@ -12,6 +12,8 @@ public:
         void setColor(int bkcolor, int textcolor);
         void draw();
         void setFocus(bool focused);
+        
+        bool isClick(int x, int y);
                 
 private:
         Label caption;
