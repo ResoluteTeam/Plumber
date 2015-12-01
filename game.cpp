@@ -3,6 +3,8 @@
 Game::Game()
 {
     initwindow(650,468,"Play Plumber",100,100,true,true);
+    pipe = new Pipe(0,100,100);
+    pipe -> rotate();
 }
 
 int Game::start()
@@ -40,7 +42,7 @@ void Game::render()
 {
     setfillstyle(SOLID_FILL, COLOR(230,225,255)); // Выставляем стил
     bar(0,0,getmaxx(),getmaxy()); // Рисуем фон
-    
+    pipe->draw();
     swapbuffers(); //Очистка буфера
 }
 

@@ -7,6 +7,7 @@
 #include "iostream"
 #include "vector"
 #include "cmath"
+#include "pipe.h"
 #include <string>
         
 class Game
@@ -20,6 +21,8 @@ private:
     void processEvents();
     void render();
     void update();
+    
+    Pipe* pipe;
     
     bool exit;
 };

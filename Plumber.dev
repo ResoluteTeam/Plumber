@@ -1,7 +1,7 @@
 [Project]
 FileName=Plumber.dev
 Name=Plumber
-UnitCount=9
+UnitCount=11
 Type=1
 Ver=1
 ObjFiles=
@@ -12,13 +12,13 @@ ResourceIncludes=
 MakeIncludes=
 Compiler=
 CppCompiler=
-Linker=
+Linker=-lbgi_@@_-lgdi32_@@_-lcomdlg32_@@_-luuid_@@_-loleaut32_@@_-lole32_@@_
 IsCpp=1
 Icon=
 ExeOutput=
 ObjectOutput=
 OverrideOutput=0
-OverrideOutputName=
+OverrideOutputName=Plumber.exe
 HostApplication=
 Folders=
 CommandLine=
@@ -27,7 +27,7 @@ CustomMakefile=
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
-CompilerSettings=
+CompilerSettings=0000000000000000000000
 
 [Unit1]
 FileName=button.cpp
@@ -136,4 +136,24 @@ OriginalFilename=
 ProductName=
 ProductVersion=
 AutoIncBuildNr=0
+
+[Unit10]
+FileName=pipe.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit11]
+FileName=pipe.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
 
