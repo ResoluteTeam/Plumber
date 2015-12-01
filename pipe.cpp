@@ -101,7 +101,71 @@ void Pipe::rotate()
         direction++;
     else direction = 0; 
     
-    switch()   
+    if(type)
+    {
+        switch(direction)
+        {
+            case 0:
+                {
+                    node1X = 1;
+                    node1Y = 0;
+                    
+                    node2X = 0;
+                    node2Y = -1;
+                }
+            break;
+            
+            case 1:
+                {
+                    node1X = 0;
+                    node1Y = 1;
+                    
+                    node2X = 1;
+                    node2Y = 0;
+                }
+            break;
+            
+            case 2:
+                {
+                    node1X = -1;
+                    node1Y = 0;
+                    
+                    node2X = 0;
+                    node2Y = 1;
+                }
+            break;
+            
+            case 3:
+                {
+                    node1X = -1;
+                    node1Y = 0;
+                    
+                    node2X = 0;
+                    node2Y = -1;
+                }
+            break;
+        }
+    }
+    
+    else
+    {
+        if(direction == 0 || direction == 2)
+            {
+                node1X = 0;
+                node1Y = 1;
+                
+                node2X = 0;
+                node2Y = -1;
+            }
+        else
+            {
+                node1X = 1;
+                node1Y = 0;
+                
+                node2X = -1;
+                node2Y = 0;
+            }
+    }   
 }
 
 void Pipe::rotate(int count)
@@ -233,22 +297,38 @@ void Pipe::draw()
     }
 }
 
-int getNode1X()
+int Pipe::getNode1X()
 {
-    x + node1X;
+    return relX + node1X;
 }
 
-int getNode1Y()
+int Pipe::getNode1Y()
 {
-    y + node1Y;
+    return relY + node1Y;
 }
 
-int getNode2X()
+int Pipe::getNode2X()
 {
-    x + node2X;
+    return relX + node2X;
 }
 
-int getNode2Y()
+int Pipe::getNode2Y()
 {
-    y + node2Y;
+    return relY + node2Y;
+}
+
+int Pipe::getRelX()
+{
+    return relX;
+}
+
+int Pipe::getRelY()
+{
+    return relY;
+}
+
+void Pipe::setRelPos(int x, int y)
+{
+    relX = x;
+    relY = y;
 }
