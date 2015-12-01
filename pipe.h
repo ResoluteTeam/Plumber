@@ -15,6 +15,10 @@ public:
         int getX();
         int getY();
         
+        int getRelX();
+        int getRelY();
+        
+        void setRelPos(int x, int y);
         void rotate();
         void rotate(int count);
         
@@ -24,6 +28,7 @@ private:
         bool type;
         int direction;
         int x, y;
+        int relX, relY;
         int size;
 };
 

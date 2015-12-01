@@ -130,3 +130,21 @@ void Pipe::draw()
         }    
     }
 }
+
+
+int Pipe::getRelX() 
+{
+    return relX;
+}
+
+int Pipe::getRelY() 
+{
+    return relY;
+}
+        
+void Pipe::setRelPos(int x, int y) 
+{
+    relX = x;
+    
+    relY = y;
+}
