@@ -21,8 +21,11 @@ private:
     void processEvents();
     void render();
     void update();
+    void initPipes();
     
     Pipe* pipe;
+    
+    std::vector<Pipe*> pipes;
     
     bool exit;
     

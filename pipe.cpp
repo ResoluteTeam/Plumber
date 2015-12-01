@@ -6,7 +6,9 @@ Pipe::Pipe(bool typeOfFigure, int positionX, int positionY)
     type = typeOfFigure;
     x = positionX;
     y = positionY;
-    direction = 0;    
+    
+    
+    direction = rand()%3;
 }   
         
 void Pipe::setPosition(int positionX, int positionY)
@@ -42,7 +44,7 @@ void Pipe::rotate(int count)
         
 void Pipe::draw()
 {
-    setfillstyle(1, 1);
+//    setfillstyle(1, 1);
     if(type) // if curve
     {
         switch(direction)
