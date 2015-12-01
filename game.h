@@ -25,6 +25,8 @@ private:
     Pipe* pipe;
     
     bool exit;
+    
+    bool** level1;
 };
 
 #endif // GAME_H

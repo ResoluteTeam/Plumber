@@ -3,15 +3,49 @@
 Game::Game()
 {
     initwindow(650,468,"Play Plumber",100,100,true,true);
+<<<<<<< HEAD
     pipe = new Pipe(0,100,100);
     pipe -> rotate();
+=======
+    
+    level1 = new bool* [4];
+    
+    for(int count = 0; count < 4; count++) {
+            level1[count] = new bool[8];
+    } 
+    
+    
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 8; j++) {
+            level1[i][j] = 1;
+        }
+    }
+    
+    level1[0][0] = 0;
+    level1[0][2] = 0;
+    level1[0][6] = 0;
+    level1[1][0] = 0;
+    level1[1][2] = 0;
+    level1[1][4] = 0;
+    level1[1][6] = 0;
+    level1[2][2] = 0;
+    level1[2][4] = 0;
+    level1[2][5] = 0;
+    level1[3][3] = 0;
+    
+    
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 8; j++) {
+            std::cout << level1[i][j] << " " ;
+        }
+        std::cout << std::endl;
+    }
+>>>>>>> 829caeb26efb08a670bc47791ddd1c62d091b58c
 }
 
 int Game::start()
 {
     exit = false;
-    
-    int frames = 50000, i = 0;
     
     while ( !exit ) {
         delay(100);
@@ -42,7 +76,23 @@ void Game::render()
 {
     setfillstyle(SOLID_FILL, COLOR(230,225,255)); // Выставляем стил
     bar(0,0,getmaxx(),getmaxy()); // Рисуем фон
+<<<<<<< HEAD
     pipe->draw();
+=======
+    
+    
+    setcolor(COLOR(0,0, 150));
+    setlinestyle(SOLID_LINE, 0, THICK_WIDTH);
+    for(int i = 0; i <= 8; i++) {
+        line(66 + i*66, 66, 66 + i*66, 330);       
+    } 
+    
+    for ( int i = 0; i < 5; i++ ) {
+         line(66, 66 + i*66, 594, 66 + i*66);
+    }
+    
+    
+>>>>>>> 829caeb26efb08a670bc47791ddd1c62d091b58c
     swapbuffers(); //Очистка буфера
 }
 
