@@ -5,6 +5,20 @@ Game::Game()
     initwindow(650,468,"Play Plumber",100,100,true,true);
     srand(time(0));
     initPipes();
+    game = true;
+    
+    winLabel = new Label();
+    winLabel->setColor(COLOR(200,225,255), COLOR(102,205,170));
+    winLabel->setVisible(false);
+    winLabel->setText("You WIN!!!!");
+    winLabel->setPosition(40, 150);
+    
+    
+    nextLvlBtn = new Button();
+    nextLvlBtn->setVisible(false);
+    nextLvlBtn->setCaption("Next level");
+    nextLvlBtn->setColor(COLOR(200,225,255), COLOR(102,205,170));
+    nextLvlBtn->setPosition(40,180);
 }
 
 int Game::start()
@@ -43,38 +57,50 @@ void Game::processEvents()
         int mouseX, mouseY;
         
         getmouseclick(WM_LBUTTONDOWN, mouseX, mouseY);
-        
-        if ( mouseX > 66 && mouseX < 594 && mouseY > 66 && mouseY < 330 ) { 
+        if ( game ) {
+            if ( mouseX > 66 && mouseX < 594 && mouseY > 66 && mouseY < 330 ) { 
+                
+                int posX, posY;
+    
+                double a, b, xx, yy;
             
-            int posX, posY;
-
-            double a, b, xx, yy;
-        
-            a = mouseX/66;
-            b = mouseY/66;
-        
-            std::modf(a, &xx);
-            std::modf(b, &yy);
-        
-            posX = (int)xx - 1;
-            posY = (int)yy - 1;
+                a = mouseX/66;
+                b = mouseY/66;
             
-            std::cout << mouseX << ":" << mouseY << std::endl;
-            std::cout << posX << ":" << posY << std::endl;
+                std::modf(a, &xx);
+                std::modf(b, &yy);
             
-            
-            std::vector<Pipe*>::iterator it;
-            it = pipes.begin();
-            
-            while ( it != pipes.end() ) {
-                if ( (*it)->getRelX() == posX && (*it)->getRelY() == posY ) {
-                    (*it)->rotate();
+                posX = (int)xx - 1;
+                posY = (int)yy - 1;
+                
+                std::cout << mouseX << ":" << mouseY << std::endl;
+                std::cout << posX << ":" << posY << std::endl;
+                
+                
+                std::vector<Pipe*>::iterator it;
+                it = pipes.begin();
+                
+                while ( it != pipes.end() ) {
+                    if ( (*it)->getRelX() == posX && (*it)->getRelY() == posY ) {
+                        (*it)->rotate();
+                    }
+                
+                it++;
                 }
-            
-            it++;
+                
+                
             }
-            
-            
+        } else {
+            if ( nextLvlBtn->isClick(mouseX, mouseY) ) {
+                std::cout << "next lvl";
+                
+                winLabel->setVisible(false);
+                nextLvlBtn->setVisible(false);
+                
+                
+                
+                game = true;
+            }
         }
     }
 }
@@ -99,12 +125,16 @@ void Game::render()
     std::vector<Pipe*>::iterator it;
     it = pipes.begin();
     
+    setfillstyle(0, 2);
     while ( it != pipes.end() ) {
      
         (*it)->draw();
      
     it++;   
     }
+    
+    winLabel->draw();
+    nextLvlBtn->draw();
     
     swapbuffers();
 }
@@ -172,11 +202,14 @@ void Game::checkWay()
         nextY = pipes.front()->getNode2Y();
         flag = true;
         
+        pipes.front()->setFilled(true);
     }
     if ( pipes.front()->getNode2X() == 0 && pipes.front()->getNode2Y() == -1) {
         nextX = pipes.front()->getNode1X();
         nextY = pipes.front()->getNode1Y();
         flag = true;
+        
+        pipes.front()->setFilled(true);
     }
     
     std::vector<Pipe*>::iterator it;
@@ -193,10 +226,10 @@ void Game::checkWay()
                 std::cout << "NODE 2: " << (*it)->getNode2X() << ":" << (*it)->getNode2Y() << std::endl;
                 flag = false;
                 
-                if ( (*it)->getNode2X() == 7 && (*it)->getNode2Y() == 4 ) {
-                        std::cout << "PABEDA!!!2";
-                    }
-                if ( (*it)->getNode1X() == 7 && (*it)->getNode1Y() == 4 ) {
+                if ( (*it)->getNode2X() == 7 && (*it)->getNode2Y() == 4 || (*it)->getNode1X() == 7 && (*it)->getNode1Y() == 4 ) {
+                    winLabel->setVisible(true);
+                    nextLvlBtn->setVisible(true);
+                    game = false;
                     std::cout << "PABEDA!!!";
                 }
                     
@@ -204,6 +237,7 @@ void Game::checkWay()
                     nextX = (*it)->getNode2X();
                     nextY = (*it)->getNode2Y();
                     flag = true;
+                    (*it)->setFilled(true);
                     
                     currX = (*it)->getRelX();
                     currY = (*it)->getRelY();
@@ -213,6 +247,7 @@ void Game::checkWay()
                     nextX = (*it)->getNode1X();
                     nextY = (*it)->getNode1Y();
                     flag = true;
+                    (*it)->setFilled(true);
                     
                     currX = (*it)->getRelX();
                     currY = (*it)->getRelY();
@@ -226,10 +261,6 @@ void Game::checkWay()
             
             std::cout << "X:" << currX << " Y:" << currY << std::endl;
         }
-    }
-    
-    if ( flag ) {
-        
     }
 }
 

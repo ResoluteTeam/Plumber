@@ -332,3 +332,8 @@ void Pipe::setRelPos(int x, int y)
     relX = x;
     relY = y;
 }
+
+void Pipe::setFilled(bool fld)
+{
+    filled = fld;
+}

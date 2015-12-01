@@ -21,11 +21,14 @@ void Button::setColor(int bkcolor, int textcolor){
 }
         
 void Button::draw(){
+    if ( visible ) {
     setfillstyle(SOLID_FILL, color);
     bar(_x, _y, _x + 265, _y + 120);
     caption.draw();
-    if(focus)
-        rectangle(_x, _y, _x + 265, _y + 120);
+        if(focus)
+            rectangle(_x, _y, _x + 265, _y + 120);
+        
+    }
 }
 
 bool Button::isClick(int x, int y) 
@@ -36,6 +39,12 @@ bool Button::isClick(int x, int y)
         return false;
     }
 }
-void Button::setFocus(bool focused){
+void Button::setFocus(bool focused)
+{
     focus = focused;
+}
+
+void Button::setVisible(bool _visible)
+{
+    visible = _visible;
 }
