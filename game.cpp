@@ -5,29 +5,29 @@ Game::Game()
     initwindow(650,468,"Play Plumber",100,100,true,true);
     srand(time(0));
     initPipes();
-    
-    filled = true;
+
+
     game = true;
     
     winLabel = new Label();
-    winLabel->setColor(COLOR(200,225,255), COLOR(102,205,170));
+    winLabel->setColor(COLOR(100,149,237), COLOR(102,205,170));
+    winLabel->setText("You LOSE");
     winLabel->setVisible(false);
-    winLabel->setText("You WIN!!!!");
-    winLabel->setPosition(40, 130);
+    winLabel->setPosition(150, 30);
     
     
     nextLvlBtn = new Button();
     nextLvlBtn->setVisible(false);
     nextLvlBtn->setCaption("Next level");
-    nextLvlBtn->setColor(COLOR(200,225,255), COLOR(102,205,170));
-    nextLvlBtn->setPosition(40,220);
+    nextLvlBtn->setColor(COLOR(100,149,237), COLOR(102,205,170));
+    nextLvlBtn->setPosition(280,340);
     
     
     exitBtn = new Button();
     exitBtn->setVisible(false);
     exitBtn->setCaption("   Exit");
-    exitBtn->setColor(COLOR(200,225,255), COLOR(102,205,170));
-    exitBtn->setPosition(310,220);
+    exitBtn->setColor(COLOR(100,149,237), COLOR(102,205,170));
+    exitBtn->setPosition(10,340);
 }
 
 int Game::start()
@@ -58,9 +58,6 @@ void Game::processEvents()
             {
                 checkWay();
             }
-            
-            
-            
         }
         
         int mouseX, mouseY;
@@ -97,15 +94,19 @@ void Game::processEvents()
                 it++;
                 }
                 
-                
             }
+            if ( mouseX > 73 && mouseX < 124 && mouseY > 5 && mouseY < 54 ) {
+                checkWay();
+            }
+            
+            
         } else {
             if ( nextLvlBtn->isClick(mouseX, mouseY) ) {
                 std::cout << "next lvl";
                 
                 winLabel->setVisible(false);
                 nextLvlBtn->setVisible(false);
-                
+                exitBtn->setVisible(false);
                 
                 
                 game = true;
@@ -123,6 +124,7 @@ void Game::render()
 
 
     setcolor(0);
+    setfillstyle(SOLID_FILL, COLOR(0,0,255)); 
     drawDecor();
     
     setcolor(COLOR(0,0, 150));
@@ -138,22 +140,22 @@ void Game::render()
     std::vector<Pipe*>::iterator it;
     it = pipes.begin();
     
-    setfillstyle(0, 0);
+
     setcolor(0);
     setfillstyle(SOLID_FILL, COLOR(0,0,255)); 
     while ( it != pipes.end() ) {
-     
+    
         (*it)->draw();
      
     it++;   
     }
     
     settextstyle(10, 0, 8);
-    setbkcolor(COLOR(200,225,255));
+    setbkcolor(COLOR(230,225,255));
     winLabel->draw();
     
-    settextstyle(10, 0, 3);
-    setbkcolor(COLOR(200,225,255));
+    setbkcolor(COLOR(100,149,237));
+    settextstyle(10, 0, 5);
     nextLvlBtn->draw();
     exitBtn->draw();
     
@@ -250,11 +252,9 @@ void Game::checkWay()
                 flag = false;
                 
                 if ( (*it)->getNode2X() == 7 && (*it)->getNode2Y() == 4 || (*it)->getNode1X() == 7 && (*it)->getNode1Y() == 4 ) {
-                    winLabel->setVisible(true);
+                    winLabel->setText("You WIN!");
                     nextLvlBtn->setVisible(true);
-                    exitBtn->setVisible(true);
                     
-                    game = false;
                     std::cout << "PABEDA!!!";
                 }
                     
@@ -285,8 +285,16 @@ void Game::checkWay()
             std::cout << "NO WAY" << std::endl;
             
             std::cout << "X:" << currX << " Y:" << currY << std::endl;
+            winLabel->setText("You LOSE");
+            
         }
     }
+    winLabel->setVisible(true);
+    
+    exitBtn->setVisible(true);
+    filled = true;
+                    
+    game = false;
 }
 
 void Game::drawDecor()

@@ -11,7 +11,7 @@ void Button::setCaption(std::string text){
 void Button::setPosition(int x, int y){
     _x = x;
     _y = y;
-    caption.setPosition(_x + 10, _y + 10);
+    caption.setPosition(_x + 10, _y + 30);
 }
 
 void Button::setColor(int bkcolor, int textcolor){
