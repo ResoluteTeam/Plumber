@@ -337,3 +337,8 @@ void Pipe::setFilled(bool fld)
 {
     filled = fld;
 }
+
+void Pipe::setDirection(int dir)
+{
+    direction = dir;
+}

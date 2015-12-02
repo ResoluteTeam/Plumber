@@ -48,3 +48,8 @@ void Button::setVisible(bool _visible)
 {
     visible = _visible;
 }
+
+bool Button::getVisible()
+{
+    return visible;
+}

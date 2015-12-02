@@ -14,6 +14,8 @@ public:
         void setFocus(bool focused);
         void setVisible(bool _visible);
         
+        bool getVisible();
+        
         bool isClick(int x, int y);
                 
 private:

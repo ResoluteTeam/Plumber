@@ -6,6 +6,7 @@
 #include "label.h"
 #include "button.h"
 #include "math.h"
+#include "pipe.h"
 
 class Menu{
 public:
@@ -25,6 +26,8 @@ private:
         int time, blinkVal, bkcolor;
         
         bool flag;
+        
+        Pipe *pipe, *pipe2, *pipe3, *pipe4, *pipe5, *pipe6, *pipe7, *pipe8, *pipe9, *pipe10, *pipe11, *pipe12;
         
 };
 

@@ -23,6 +23,7 @@ public:
         int getNode2Y();
         
         
+        void setDirection(int dir);
         void setFilled(bool fld);
         void setRelPos(int x, int y);
         void rotate();

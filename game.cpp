@@ -88,9 +88,6 @@ void Game::processEvents()
                 posX = (int)xx - 1;
                 posY = (int)yy - 1;
                 
-                std::cout << mouseX << ":" << mouseY << std::endl;
-                std::cout << posX << ":" << posY << std::endl;
-                
                 
                 std::vector<Pipe*>::iterator it;
                 it = pipes.begin();
@@ -111,14 +108,16 @@ void Game::processEvents()
             
         } else {
             if ( nextLvlBtn->isClick(mouseX, mouseY) ) {
-                std::cout << "next lvl";
+                if ( nextLvlBtn->getVisible() ) {
+                    std::cout << "next lvl";
+                    
+                    winLabel->setVisible(false);
+                    nextLvlBtn->setVisible(false);
+                    exitBtn->setVisible(false);
+                    
+                    game = true;
+                }
                 
-                winLabel->setVisible(false);
-                nextLvlBtn->setVisible(false);
-                exitBtn->setVisible(false);
-                
-                
-                game = true;
             } if ( exitBtn->isClick(mouseX, mouseY) ) {
                 exit = true;
             }
@@ -222,14 +221,11 @@ void Game::initPipes()
     
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 4; j++) {
-            std::cout << level1[i][j] << " " ;
                 temp = new Pipe(level1[i][j], 66 + i*66, 66 + j * 66);
                 temp->setRelPos(i, j);
                 
                 pipes.push_back(temp);
         }
-        
-        std::cout << std::endl;
     }
 }
 
@@ -274,7 +270,7 @@ void Game::checkWay()
                 
                 if ( (*it)->getNode2X() == 7 && (*it)->getNode2Y() == 4 || (*it)->getNode1X() == 7 && (*it)->getNode1Y() == 4 ) {
                     winLabel->setText("You WIN!");
-                    nextLvlBtn->setVisible(true);
+                    //nextLvlBtn->setVisible(true);
                     
                     std::cout << "PABEDA!!!";
                 }
