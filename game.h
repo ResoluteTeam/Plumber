@@ -33,10 +33,14 @@ private:
     std::vector<Pipe*> pipes;
     
     bool exit;
+    bool game;
     
     bool filled;
     
     bool** level1;
+    
+    Button *nextLvlBtn;
+    Label *winLabel;
 };
 
 #endif // GAME_H

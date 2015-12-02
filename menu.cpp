@@ -8,6 +8,7 @@ Menu::Menu(){
     logo.setPosition(120, 70);
     logo.setSize(0);
     
+    startBtn.setVisible(true);
     startBtn.setCaption("Start!");
     startBtn.setColor(COLOR(200,225,255), COLOR(102,205,170));
     startBtn.setPosition(30,180);

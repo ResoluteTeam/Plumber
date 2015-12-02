@@ -22,6 +22,8 @@ public:
         int getNode2X();
         int getNode2Y();
         
+        
+        void setFilled(bool fld);
         void setRelPos(int x, int y);
         void rotate();
         void rotate(int count);
