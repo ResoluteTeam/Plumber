@@ -270,7 +270,6 @@ void Game::drawDecor()
 {
     if(filled)
     {
-        setfillstyle(0,3);
         bar(84, 59, 114, 66);
         bar(66*8 + 18, 66*5, 66*8 + 48, 66*5 + 7);
         bar(88,59,108, -2);    
