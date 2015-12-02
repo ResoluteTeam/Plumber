@@ -13,14 +13,21 @@ Game::Game()
     winLabel->setColor(COLOR(200,225,255), COLOR(102,205,170));
     winLabel->setVisible(false);
     winLabel->setText("You WIN!!!!");
-    winLabel->setPosition(40, 150);
+    winLabel->setPosition(40, 130);
     
     
     nextLvlBtn = new Button();
     nextLvlBtn->setVisible(false);
     nextLvlBtn->setCaption("Next level");
     nextLvlBtn->setColor(COLOR(200,225,255), COLOR(102,205,170));
-    nextLvlBtn->setPosition(40,180);
+    nextLvlBtn->setPosition(40,220);
+    
+    
+    exitBtn = new Button();
+    exitBtn->setVisible(false);
+    exitBtn->setCaption("   Exit");
+    exitBtn->setColor(COLOR(200,225,255), COLOR(102,205,170));
+    exitBtn->setPosition(310,220);
 }
 
 int Game::start()
@@ -102,6 +109,8 @@ void Game::processEvents()
                 
                 
                 game = true;
+            } if ( exitBtn->isClick(mouseX, mouseY) ) {
+                exit = true;
             }
         }
     }
@@ -112,6 +121,8 @@ void Game::render()
     setfillstyle(SOLID_FILL, COLOR(230,225,255)); 
     bar(0,0,getmaxx(),getmaxy());
 
+
+    setcolor(0);
     drawDecor();
     
     setcolor(COLOR(0,0, 150));
@@ -127,7 +138,9 @@ void Game::render()
     std::vector<Pipe*>::iterator it;
     it = pipes.begin();
     
-    setfillstyle(0, 2);
+    setfillstyle(0, 0);
+    setcolor(0);
+    setfillstyle(SOLID_FILL, COLOR(0,0,255)); 
     while ( it != pipes.end() ) {
      
         (*it)->draw();
@@ -135,8 +148,16 @@ void Game::render()
     it++;   
     }
     
+    settextstyle(10, 0, 8);
+    setbkcolor(COLOR(200,225,255));
     winLabel->draw();
+    
+    settextstyle(10, 0, 3);
+    setbkcolor(COLOR(200,225,255));
     nextLvlBtn->draw();
+    exitBtn->draw();
+    
+    
     
     swapbuffers();
 }
@@ -231,6 +252,8 @@ void Game::checkWay()
                 if ( (*it)->getNode2X() == 7 && (*it)->getNode2Y() == 4 || (*it)->getNode1X() == 7 && (*it)->getNode1Y() == 4 ) {
                     winLabel->setVisible(true);
                     nextLvlBtn->setVisible(true);
+                    exitBtn->setVisible(true);
+                    
                     game = false;
                     std::cout << "PABEDA!!!";
                 }

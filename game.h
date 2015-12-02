@@ -39,7 +39,7 @@ private:
     
     bool** level1;
     
-    Button *nextLvlBtn;
+    Button *nextLvlBtn, *exitBtn;
     Label *winLabel;
 };
 
