@@ -5,6 +5,8 @@ Game::Game()
     initwindow(650,468,"Play Plumber",100,100,true,true);
     srand(time(0));
     initPipes();
+    
+    filled = true;
 }
 
 int Game::start()
@@ -235,6 +237,11 @@ void Game::checkWay()
 
 void Game::drawDecor()
 {
+    setfillstyle(1,3);
+    if(filled)
+    {
+        bar(84, 59, 114, 66);    
+    }
     //------Enter
     rectangle(84, 59, 114, 66);
     rectangle(89, 59, 109, -2);
@@ -254,6 +261,8 @@ void Game::drawDecor()
     line(66*8 + 43, 66*5 + 7, 66*8 + 43, 66*5 + 37);
     line(66*8 + 43, 66*5 + 37, 66*8 + 150, 66*5 + 37);
     line(66*8 + 23, 66*5 + 57, 66*8 + 150, 66*5 + 57);
+    
+
 }
     
 Game::~Game()

@@ -34,6 +34,8 @@ private:
     
     bool exit;
     
+    bool filled;
+    
     bool** level1;
 };
 
