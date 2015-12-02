@@ -28,6 +28,15 @@ Game::Game()
     exitBtn->setCaption("   Exit");
     exitBtn->setColor(COLOR(100,149,237), COLOR(102,205,170));
     exitBtn->setPosition(10,340);
+    
+    timeToEnd = new Label();
+    timeToEnd->setColor(COLOR(100,149,237), COLOR(102,205,170));
+    timeToEnd->setText("1:30 left...");
+    timeToEnd->setVisible(true);
+    timeToEnd->setPosition(10, 360);
+    
+    gameTime.tm_sec = 60;
+    startTime = time(NULL);
 }
 
 int Game::start()
@@ -153,6 +162,7 @@ void Game::render()
     settextstyle(10, 0, 8);
     setbkcolor(COLOR(230,225,255));
     winLabel->draw();
+    timeToEnd->draw();
     
     setbkcolor(COLOR(100,149,237));
     settextstyle(10, 0, 5);
@@ -166,7 +176,18 @@ void Game::render()
 
 void Game::update()
 {
+    currTime = time(NULL);
+    passedTime = difftime(startTime, currTime);
+    std::stringstream ss;
+    ss << gameTime.tm_sec + passedTime;
+    std::string str = ss.str();
+    timeToEnd->setText(str+ " sec left...");
     
+    if(passedTime < -60)
+        {
+            checkWay();
+            timeToEnd->setVisible(false);
+        }
 }
 
 void Game::initPipes() 

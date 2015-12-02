@@ -6,9 +6,11 @@
 #include "graphics.h"
 #include "iostream"
 #include "vector"
-#include "cmath"
 #include "pipe.h"
+#include "time.h"
+#include "cmath"
 #include <string>
+#include "sstream"
         
 class Game
 {
@@ -39,8 +41,12 @@ private:
     
     bool** level1;
     
+    struct tm gameTime;
+    time_t startTime, currTime;
+    double passedTime;
+
     Button *nextLvlBtn, *exitBtn;
-    Label *winLabel;
+    Label *winLabel, *timeToEnd;
 };
 
 #endif // GAME_H
