@@ -45,7 +45,7 @@ private:
     time_t startTime, currTime;
     double passedTime;
 
-    Button *nextLvlBtn, *exitBtn;
+    Button *exitBtn;
     Label *winLabel, *timeToEnd;
 };
 

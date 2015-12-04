@@ -4,11 +4,15 @@ Game::Game()
 {
     initwindow(650,468,"Play Plumber",100,100,true,true);
     srand(time(0));
-    initPipes();
+    
+
+    initPipes(); //Расставляем трубы
 
 
     game = true;
     
+    
+    //======================Создаем надписи и кнопки на поле
     winLabel = new Label();
     winLabel->setColor(COLOR(100,149,237), COLOR(102,205,170));
     winLabel->setText("You LOSE");
@@ -16,19 +20,14 @@ Game::Game()
     winLabel->setPosition(150, 30);
     
     
-    nextLvlBtn = new Button();
-    nextLvlBtn->setVisible(false);
-    nextLvlBtn->setCaption("Next level");
-    nextLvlBtn->setColor(COLOR(100,149,237), COLOR(102,205,170));
-    nextLvlBtn->setPosition(280,340);
-    
-    
     exitBtn = new Button();
     exitBtn->setVisible(false);
     exitBtn->setCaption("   Exit");
     exitBtn->setColor(COLOR(100,149,237), COLOR(102,205,170));
     exitBtn->setPosition(10,340);
+    //======================
     
+    //======================Создаем таймер
     timeToEnd = new Label();
     timeToEnd->setColor(COLOR(100,149,237), COLOR(102,205,170));
     timeToEnd->setText("1:30 left...");
@@ -37,6 +36,7 @@ Game::Game()
     
     gameTime.tm_sec = 60;
     startTime = time(NULL);
+    //======================
 }
 
 int Game::start()
@@ -71,7 +71,8 @@ void Game::processEvents()
         
         int mouseX, mouseY;
         
-        getmouseclick(WM_LBUTTONDOWN, mouseX, mouseY);
+        //======================Взаимодействие с помощью мыши
+        getmouseclick(WM_LBUTTONDOWN, mouseX, mouseY); 
         if ( game ) {
             if ( mouseX > 66 && mouseX < 594 && mouseY > 66 && mouseY < 330 ) { 
                 
@@ -92,33 +93,26 @@ void Game::processEvents()
                 std::vector<Pipe*>::iterator it;
                 it = pipes.begin();
                 
-                while ( it != pipes.end() ) {
-                    if ( (*it)->getRelX() == posX && (*it)->getRelY() == posY ) {
-                        (*it)->rotate();
+                //======================Находим трубу на которую кликнули
+                while ( it != pipes.end() ) { 
+                    if ( (*it)->getRelX() == posX && (*it)->getRelY() == posY ) { 
+                        (*it)->rotate(); // поворачиваем ее
                     }
                 
                 it++;
                 }
                 
             }
-            if ( mouseX > 73 && mouseX < 124 && mouseY > 5 && mouseY < 54 ) {
-                checkWay();
+            //======================Когда нажимаем на трубу (запустить воду)
+            if ( mouseX > 73 && mouseX < 124 && mouseY > 5 && mouseY < 54 ) { 
+                checkWay(); //Проверяем путь воды на правильность
             }
             
             
         } else {
-            if ( nextLvlBtn->isClick(mouseX, mouseY) ) {
-                if ( nextLvlBtn->getVisible() ) {
-                    std::cout << "next lvl";
-                    
-                    winLabel->setVisible(false);
-                    nextLvlBtn->setVisible(false);
-                    exitBtn->setVisible(false);
-                    
-                    game = true;
-                }
+            //====================== После завершения рануда обрабатываем нажатие на кнопку выхода
                 
-            } if ( exitBtn->isClick(mouseX, mouseY) ) {
+             if ( exitBtn->isClick(mouseX, mouseY) ) {
                 exit = true;
             }
         }
@@ -127,10 +121,14 @@ void Game::processEvents()
 
 void Game::render()
 {
+    
+    //======================Заполняем поле фоном
     setfillstyle(SOLID_FILL, COLOR(230,225,255)); 
     bar(0,0,getmaxx(),getmaxy());
+    //======================
 
 
+    //======================Рисуем поле и точки входа-выхода
     setcolor(0);
     setfillstyle(SOLID_FILL, COLOR(0,0,255)); 
     drawDecor();
@@ -145,6 +143,10 @@ void Game::render()
          line(66, 66 + i*66, 594, 66 + i*66);
     }
     
+    //======================
+    
+    
+    //======================Рисуем трубы на поле
     std::vector<Pipe*>::iterator it;
     it = pipes.begin();
     
@@ -158,45 +160,60 @@ void Game::render()
     it++;   
     }
     
+    //======================
+    
+    
+    //======================Рисуем надписи, таймер и кнопку выхода
     settextstyle(10, 0, 8);
     setbkcolor(COLOR(230,225,255));
     winLabel->draw();
+    
+    settextstyle(10, 0, 6);
+    setbkcolor(COLOR(230,225,255));
     timeToEnd->draw();
     
     setbkcolor(COLOR(100,149,237));
     settextstyle(10, 0, 5);
-    nextLvlBtn->draw();
+
     exitBtn->draw();
+    //======================
     
     
-    
-    swapbuffers();
+    swapbuffers(); //очистка буфера
 }
 
 void Game::update()
 {
+    //======================Обновление значений таймера
+    
     currTime = time(NULL);
     passedTime = difftime(startTime, currTime);
     std::stringstream ss;
     ss << gameTime.tm_sec + passedTime;
     std::string str = ss.str();
     timeToEnd->setText(str+ " sec left...");
+    //======================
+    //======================Если время вышло - запускаем воду, проверяем путь
     
-    if(passedTime < -60)
+    if(passedTime < -60 && game)
         {
             checkWay();
-            timeToEnd->setVisible(false);
         }
+    //======================
 }
 
 void Game::initPipes() 
 {
+    //======================Создаем поле
+    
     level1 = new bool* [8];
     
     for(int count = 0; count < 8; count++) {
             level1[count] = new bool[4];
     } 
+    //======================
     
+    //======================Заполняем трубами
     
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 4; j++) {
@@ -216,6 +233,10 @@ void Game::initPipes()
     level1[2][5] = 0;
     level1[3][3] = 0;
     
+    
+    //======================
+    
+    //======================Создаем каждую трубу и заносим в вектор для далнейшей отрисовки
     Pipe *temp;
     
     
@@ -227,17 +248,26 @@ void Game::initPipes()
                 pipes.push_back(temp);
         }
     }
+    //======================
 }
 
 void Game::checkWay() 
 {
+
+    timeToEnd->setVisible(false);
     
+    
+    //======================Проверка пути
+    //======================Имеем текущий елемент (трубу) и позицию выходов из трубы
     int nextX, nextY;
     int currX = 0;
     int currY = 0;
     
     bool flag = false;
     
+    
+    //======================Берем первый елемент и смотрим на его выходы
+    //======================Если вход идет к точке выхода воды возьмем другой выход, которы указывает на сделующий елемент
     
     if ( pipes.front()->getNode1X() == 0 && pipes.front()->getNode1Y() == -1 ) {
         nextX = pipes.front()->getNode2X();
@@ -254,25 +284,27 @@ void Game::checkWay()
         pipes.front()->setFilled(true);
     }
     
-    std::vector<Pipe*>::iterator it;
     
+    //======================Проходимся по полному пути
+
+
+    std::vector<Pipe*>::iterator it;    
     
     while ( nextX != 7 && nextY != 4 && flag) {
         
         it = pipes.begin();
         flag = false;
         
+        //======================Берем одну точку выхода, переходим к елементу, если у следующего елемента точка входа совпадает
+        //======================с точкой выхода предыдущего - идем дальше
+        //======================И так пока не дойдем до точки выхода, если все условия будут солюдены -
+        //======================Выводим сообщение о победе, если нет - о проиграше
         while ( it != pipes.end() ) {
             if ( (*it)->getRelX() == nextX && (*it)->getRelY() == nextY ) {
-                std::cout << "NODE 1: " << (*it)->getNode1X() << ":" << (*it)->getNode1Y() << std::endl;
-                std::cout << "NODE 2: " << (*it)->getNode2X() << ":" << (*it)->getNode2Y() << std::endl;
                 flag = false;
                 
                 if ( (*it)->getNode2X() == 7 && (*it)->getNode2Y() == 4 || (*it)->getNode1X() == 7 && (*it)->getNode1Y() == 4 ) {
                     winLabel->setText("You WIN!");
-                    //nextLvlBtn->setVisible(true);
-                    
-                    std::cout << "PABEDA!!!";
                 }
                     
                 if ( (*it)->getNode1X() == currX && (*it)->getNode1Y() == currY ) {
@@ -299,11 +331,8 @@ void Game::checkWay()
         }
         
         if ( !flag ) {
-            std::cout << "NO WAY" << std::endl;
             
-            std::cout << "X:" << currX << " Y:" << currY << std::endl;
             winLabel->setText("You LOSE");
-            
         }
     }
     winLabel->setVisible(true);
@@ -316,6 +345,8 @@ void Game::checkWay()
 
 void Game::drawDecor()
 {
+    
+    //======================Отрисовка точки входа и точки выхода
     if(filled)
     {
         bar(84, 59, 114, 66);
@@ -352,7 +383,9 @@ void Game::drawDecor()
     line(66*8 + 23, 66*5 + 7, 66*8 + 23, 66*5 + 57);
     line(66*8 + 43, 66*5 + 7, 66*8 + 43, 66*5 + 37);
     line(66*8 + 43, 66*5 + 37, 66*8 + 150, 66*5 + 37);
-    line(66*8 + 23, 66*5 + 57, 66*8 + 150, 66*5 + 57);   
+    line(66*8 + 23, 66*5 + 57, 66*8 + 150, 66*5 + 57);  
+    
+    //======================
 }
     
 Game::~Game()
