@@ -66,6 +66,15 @@ void Game::processEvents()
             } if ( key == '\r' )
             {
                 checkWay();
+            } if ( key == 114 )
+            {
+                std::vector<Pipe*>::iterator it;
+                it = pipes.begin();
+                
+                while ( it != pipes.end() ) { 
+                    (*it)->changeRotationDir();
+                it++;
+                }   
             }
         }
         

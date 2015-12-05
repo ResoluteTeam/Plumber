@@ -5,6 +5,7 @@
 //bool type, if 0 - straight, 1 - curve
 //size = 66x66
 //direction, if 0 - up, 1 - right, 2 - dawn, 3 - right
+//rotation, 1 - clockwise, 0 - anticlockwise;
 
 class Pipe {
 public:
@@ -26,6 +27,7 @@ public:
         void setDirection(int dir);
         void setFilled(bool fld);
         void setRelPos(int x, int y);
+        void changeRotationDir();
         void rotate();
         void rotate(int count);
         
@@ -39,6 +41,7 @@ private:
         int relX, relY;
         int size;
         bool filled;
+        bool rotationDir;
 };
 
 #endif //PIPE_H

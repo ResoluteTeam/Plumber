@@ -6,7 +6,7 @@ Pipe::Pipe(bool typeOfFigure, int positionX, int positionY)
     type = typeOfFigure;
     x = positionX;
     y = positionY;
-    
+    rotationDir = 1;
     
     direction = rand()%4;
     
@@ -97,9 +97,18 @@ int Pipe::getY()
         
 void Pipe::rotate()
 {
-    if(direction < 3)
-        direction++;
-    else direction = 0; 
+    if(rotationDir)
+    {
+        if(direction < 3)
+            direction++;
+        else direction = 0; 
+    }
+    else
+    {
+        if(direction > 0)
+            direction--;
+        else direction = 3;     
+    }
     
     if(type)
     {
@@ -341,4 +350,9 @@ void Pipe::setFilled(bool fld)
 void Pipe::setDirection(int dir)
 {
     direction = dir;
+}
+
+void Pipe::changeRotationDir()
+{
+    rotationDir = !rotationDir;
 }
